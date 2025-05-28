@@ -60,12 +60,12 @@ Route::get('display-subjects', function(){
         'andrus' => [
             'href' => 'https://hajus.ta23raamat.itmajakas.ee/api/movies',
             'custom_fields' => ['director', 'release_year'],
-        ]
+        ],
 
-        // 'kert' => [
-        //     'href' => 'https//hajus.tak23mand.itmajakas.ee/api/favourite/...'
-        //     'custom_fields' => ['genres', 'developer'],
-        // ]
+        'kert' => [
+            'href' => 'https://hajus.tak23mand.itmajakas.ee/api/favourite/07b4cc44-9042-4944-b1dc-56eac757ca4f',
+            'custom_fields' => ['genres', 'developer'],
+        ]
     ];
     
     $data = match(request('type')){
