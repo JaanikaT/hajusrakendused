@@ -54,7 +54,10 @@ const deletePost = () => {
         <div class="mx-auto my-12 w-full max-w-screen-lg">
             <div class="flex justify-between gap-8 pb-4">
                 <h1 class="text-2xl font-semibold tracking-wide">Postitused</h1>
-                <Button>Lisa uus postitus</Button>
+                <!-- <Button>Lisa uus postitus</Button> -->
+                <Button :as="Link" :href="route('posts.create')" variant="outline">
+                    Lisa uus postitus
+                </Button>
             </div>
             <div class="rounded-md border shadow-sm">
                 <Table>
