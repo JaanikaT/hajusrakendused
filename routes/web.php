@@ -65,18 +65,23 @@ Route::get('display-subjects', function(){
         'kert' => [
             'href' => 'https://hajus.tak23mand.itmajakas.ee/api/favourite/07b4cc44-9042-4944-b1dc-56eac757ca4f',
             'custom_fields' => ['genres', 'developer'],
+        ],
+        'katrin' => [
+            'href' => 'https://hajusrakendused.ta23ansper.itmajakas.ee/subjects',
+            'custom_fields' => ['rating', 'ranking'],
         ]
     ];
     
     $data = match(request('type')){
         'andrus'=> Http::get($datasets['andrus']['href'])->json(),
         'kert'=> Http::get($datasets['kert']['href'])->json(),
+        'katrin'=> Http::get($datasets['katrin']['href'])->json(),
         default => Subject::all()->toArray(),
     };
-
+    
     return Inertia::render('Subjects', [
         'data'=> $data,
-        'customFields' => data_get($datasets, request('type').'custom_fields',['comfort','seats'])
+        'customFields' => data_get($datasets, request('type').'.custom_fields',['comfort','seats'])
     ]);
 });
 

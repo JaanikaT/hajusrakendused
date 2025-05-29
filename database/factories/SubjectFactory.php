@@ -15,16 +15,18 @@ class SubjectFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition(): void
     {
-        fake()->addProvider(PicsumProvider::class);
+        // fake()->addProvider(PicsumProvider::class);
         
-        return [
-            'title'=> fake()->sentence(2),
-            'image' => fake()->picsumUrl(400, 400),
-            'description' => fake()->sentence(),
-            'comfort'=> fake()->randomDigitNotZero(),
-            'seats' => fake()->numberBetween($int1 = 2, $int2 = 600),
-        ];
+        // return [
+        //     'title'=> fake()->sentence(2),
+        //     'image' => fake()->picsumUrl(400, 400),
+        //     'description' => fake()->sentence(),
+        //     'comfort'=> fake()->randomDigitNotZero(),
+        //     'seats' => fake()->numberBetween($int1 = 2, $int2 = 600),
+        // ];
+
+
     }
 }
