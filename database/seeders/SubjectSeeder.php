@@ -34,7 +34,7 @@ class SubjectSeeder extends Seeder
 
             [
             'title'=> 'Airbus A220-300',
-            'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/YL-CSD_Bombardier_BD-500-1A100_CS300_BCS3_Airbus_A220-300_A223_c_n_55006_-_BTI_%2831100301167%29.jpg/800px-YL-CSD_Bombardier_BD-500-1A100_CS300_BCS3_Airbus_A220-300_A223_c_n_55006_-_BTI_%2831100301167%29.jpg',
+            'image' => 'https://cdn.prod.website-files.com/65a0f5e2f3a73fc7e30e9205/65b12964ccc7ceaab8685d7c_53484680898_a91ca65dd6_k-p-1600.webp',
             'description' => 'Two engine narrow-body aircraft originally produced by Bombardier CSeries, later aqired by Airbus. First flight in 2015.',
             'comfort'=> '9',
             'seats' => '160',
@@ -48,6 +48,7 @@ class SubjectSeeder extends Seeder
             'seats' => '4',
             ],  
         ];
+        
         foreach ($planesData as $data) {
             // Create plane
             $plane = Subject::create([

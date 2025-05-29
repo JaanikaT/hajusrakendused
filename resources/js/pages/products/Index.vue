@@ -48,7 +48,7 @@ const formatCurrency =(amount:number) => {
                     <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover rounded-t-lg">
                     <h2 class="text-lg font-semibold mt-4">{{ product.name }}</h2>
                     <p class="text-gray-600 mt-2">{{ product.description }}</p>
-                    <p class="text-xl font-bold mt-4">{{ formatCurrency(product.price) }} €</p>
+                    <p class="text-xl font-bold mt-4">{{ formatCurrency(product.price) }} </p>
                     <Button class="mt-2 w-full" @click="addToCart(product)">Add to Cart</Button>
                 </Card>
             </div>
