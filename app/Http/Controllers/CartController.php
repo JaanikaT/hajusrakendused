@@ -12,7 +12,7 @@ class CartController extends Controller
     {
         //$request->session()->forget('cart');
 
-         $cart = session()->get('cart', []);
+        $cart = session()->get('cart', []);
 
         if (data_get($cart, $product->id)) {
             //dd($cart[$product->id]);
@@ -29,12 +29,13 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart');
+        return redirect()->back()->with('success', 'Toode lisatud korvi');
     }
 
     public function remove()
     {    
     
+        
     }
 
     public function clear()

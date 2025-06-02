@@ -19,11 +19,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { BreadcrumbItem } from '@/types';
-import { PenSquare, Trash } from 'lucide-vue-next';
+import { Eye, PenSquare, Trash } from 'lucide-vue-next';
 import { Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -55,7 +54,7 @@ const deletePost = () => {
             <div class="flex justify-between gap-4">
                 <h1 class="text-2xl font-semibold tracking-wide">Postitused</h1>
                 <!-- <Button>Lisa uus postitus</Button> -->
-                <Button :as="Link" :href="route('posts.create')" variant="outline" class="border-2 bg-[#fafafa] dark:[#121212]">
+                <Button :as="Link" :href="route('posts.create')">
                     Lisa uus postitus
                 </Button>
             </div>
@@ -82,6 +81,9 @@ const deletePost = () => {
                         <TableCell class="text-right">{{ post.created_at_for_humans }}</TableCell>
                         <TableCell class="test-right">
                             <div class="flex justify-end gap-2">
+                                <Button :as="Link" :href="route('posts.show', post)" variant="outline" size="icon">
+                                    <Eye class="size-4"/>
+                                </Button>
                                 <Button :as="Link" :href="route('posts.edit', post)" variant="outline" size="icon">
                                     <PenSquare class="size-4"/>
                                 </Button>

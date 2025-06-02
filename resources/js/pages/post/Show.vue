@@ -10,7 +10,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
 import { ref, reactive, watch} from 'vue';
@@ -23,19 +22,16 @@ import { ArrowBigLeft, Trash } from 'lucide-vue-next';
 
 
 const props = defineProps(['post'])
-// const page = usePage();
-
-// const flash = page.props.flash ?? {};
 
 const inertiaFlash = usePage().props.flash || { message: null, type: null };
 
-// Create a local reactive copy
+
 const flash = reactive({
   message: inertiaFlash.message,
   type: inertiaFlash.type,
 });
 
-// Watch for changes from inertiaFlash and update local flash
+
 watch(
   () => inertiaFlash.message,
   (newMessage) => {
@@ -46,19 +42,11 @@ watch(
       setTimeout(() => {
         flash.message = null;
         flash.type = null;
-      }, 3500); // 4 seconds timeout
+      }, 4000); 
     }
   },
   { immediate: true }
 );
-
-
-
-
-// const flashMessages = reactive({
-//   success: null,
-//   unauthorized: null,
-// });
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -148,10 +136,8 @@ const deleteComment = (id: number | null) => {
             </div>
             <!-- <pre>{{ post.comments }}</pre> -->
 
-
         </div>
         <AlertDialog :open="commentToDelete !== null">
-        
         <AlertDialogContent>
             <AlertDialogHeader>
             <AlertDialogTitle>Soovid kommentaari kustutada?</AlertDialogTitle>

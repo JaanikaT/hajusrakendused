@@ -10,23 +10,23 @@ import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Töölaud',
         href: '/dashboard',
         // ikoon imporditud Lucide.vue
         icon: LayoutGrid,
     },
     {
-        title: 'Posts',
+        title: 'Blogi',
         href: '/posts',
         icon: Signpost,
     },
     {
-        title: 'Products',
+        title: 'E-pood',
         href: '/products',
         icon: Box,
     },
     {
-        title: 'My API',
+        title: 'Minu API',
         href: '/display-subjects?type=',
         icon: Plane,
     },
@@ -50,14 +50,10 @@ const mainNavItems: NavItem[] = [
 const footerNavItems: NavItem[] = [
     {
         title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
+        href: 'https://github.com/JaanikaT/hajusrakendused',
         icon: Folder,
     },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits',
-        icon: BookOpen,
-    },
+   
 ];
 </script>
 

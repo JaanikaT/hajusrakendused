@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MarkerController;
@@ -20,13 +21,18 @@ Route::get('/', function () {
 Route::get('dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-    
+
+
+Route::resource('marker', MarkerController::class);    
 // Route::post('marker/create', MarkerController::class)
 // // {
 // //     return redirect()-> to(route('dashboard'));
 // // })
 //     ->middleware(['auth', 'verified'])
 //     ->name('marker');
+
+
+//Blog
 
 Route::resource('posts', PostController::class)->middleware('auth');
 Route::post('/comments/{post}', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
@@ -35,7 +41,8 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
     ->name('comments.destroy');
 
 
-Route::resource('marker', MarkerController::class);
+
+//Store & Cart
 
 Route::get('/products', [ProductController::class, 'index'])->middleware('auth')->name('products.index');
 
@@ -54,6 +61,24 @@ Route::controller(CartController::class)
 
 //tõstetud ülespoole CartControlleri sisse
 //Route::get('checkout', [CartController::class, 'view'])->middleware('auth')->name('checkout');   
+
+
+
+Route::post('/checkout', [CheckoutController::class, 'checkout']);
+
+Route::get('/checkout/success', function () {
+    session()->forget('cart');
+    return Inertia::render('CheckoutSuccess');
+})->name('checkout.success');
+
+Route::get('/checkout/cancel', function () {
+    return Inertia::render('CheckoutCancel');
+})->name('checkout.cancel');
+
+
+
+
+//API-d
 
 Route::get('subjects',[SubjectController::class, 'index'])->name('subjects.index');
 

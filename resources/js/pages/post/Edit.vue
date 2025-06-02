@@ -28,7 +28,6 @@ const submit = () => {
     form.put(route('posts.update', props.post.id));
 };
 
-
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Edit post',
@@ -40,10 +39,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <div>
-           
-            <div class="flex justify-center my-12 mx-auto max-w-2xl ">
+    <AppLayout :breadcrumbs="breadcrumbs"> 
+        <div class="flex justify-center my-12 mx-auto max-w-2xl ">
             <!-- käsk shadcn-x-card -->
             <form @submit.prevent="submit">
                 <Card class=" bg-[#fafafa] dark:bg-[#121212]">
@@ -75,11 +72,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </Card>
             </form>
             <!-- kuvab vormi all sisestatud infot
-             <pre>{{ form }}</pre> -->
-        </div>   
-        
-        
-        
-        </div>
+            <pre>{{ form }}</pre> -->
+            </div>
+       
     </AppLayout>
 </template>
