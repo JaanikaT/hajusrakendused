@@ -57,6 +57,13 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+
+            'flash' => [
+            'type' => fn () => $request->session()->get('flash.type'),
+            'message' => fn () => $request->session()->get('flash.message'),
+            ],
+
+
         ];
     }
 }

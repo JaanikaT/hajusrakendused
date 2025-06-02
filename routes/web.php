@@ -29,7 +29,10 @@ Route::get('dashboard', DashboardController::class)
 //     ->name('marker');
 
 Route::resource('posts', PostController::class)->middleware('auth');
-Route::post('/comment/{post}', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
+Route::post('/comments/{post}', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('comments.destroy');
 
 
 Route::resource('marker', MarkerController::class);

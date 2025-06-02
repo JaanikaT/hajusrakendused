@@ -64,6 +64,19 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        //dd($comment);
+        if ($comment->user_id !== auth()->id()) {
+            return back()->with('flash',[
+                'type' => 'error', 
+                'message' => 'Saad kustutada ainult enda lisatud kommentaari.',
+            ]);
+        }
+    
+        $comment->delete();
+    
+        return redirect()->back()->with('flash',[
+            'type' => 'success', 
+            'message' => 'Kommentaar kustutatud',
+        ]);
     }
 }

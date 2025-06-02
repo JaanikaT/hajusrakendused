@@ -14,6 +14,8 @@ import Textarea from '@/components/ui/textarea/Textarea.vue';
 import Button from '@/components/ui/button/Button.vue';
 import Label from '@/components/ui/label/Label.vue';
 import InputError from '@/components/InputError.vue';
+import { ArrowBigLeft } from 'lucide-vue-next';
+import { Link } from '@inertiajs/vue3';
 
 
 
@@ -30,17 +32,17 @@ const form = useForm({
 })
 
 const submit = () => {
-    // console.log(form)
+    //console.log(form)
     form.post(route('posts.store'))
 }
 </script>
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="my-12 mx-auto max-w-2xl">
+        <div class="flex justify-center my-12 mx-auto max-w-2xl ">
             <!-- käsk shadcn-x-card -->
             <form @submit.prevent="submit">
-                <Card>
+                <Card class=" bg-[#fafafa] dark:bg-[#121212]">
                     <CardHeader>
                         <CardTitle>Loo postitus</CardTitle>
                         <CardDescription>Lisa uus blogipostitus</CardDescription>
@@ -59,7 +61,10 @@ const submit = () => {
                         </div>
                     
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter class="flex justify-between">
+                        <Button :as="Link" :href="route('posts.index')" size="icon"  >
+                            <ArrowBigLeft class="size-4"/>
+                        </Button>
                         <Button type ="submit">Salvesta</Button>
                     </CardFooter>
                 </Card>
