@@ -50,19 +50,19 @@ const formatCurrency =(amount:number) => {
                     </Button>
                 </div>
             </div>
-            <h1 class="text-3xl font-bold text-center mb-6">Osta siit!</h1>
+            <h1 class="text-3xl font-bold text-center mb-6 dark:text-gray-800">Osta siit!</h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <Card v-for="product in products" :key="product.id" class="bg-white p-4 rounded-lg shadow-md flex flex-col">
+                <Card v-for="product in products" :key="product.id" class="bg-[#fafafa] dark:bg-[#121212] p-4 rounded-lg shadow-md flex flex-col">
                     <div>
                         <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover rounded-t-lg">
                     </div>
                     <div class="flex flex-col h-4/6">    
                         <h2 class="text-lg font-semibold mt-4">{{ product.name }}</h2>
-                        <p class="text-gray-600 mt-2">{{ product.description }}</p>
+                        <p class="mt-2">{{ product.description }}</p>
                     </div>    
                     <p class="text-xl font-bold mt-4">{{ formatCurrency(product.price) }} </p>
                     
-                    <Button class="mt-2 w-full" @click="addToCart(product)">Lisa korvi</Button>
+                    <Button class="mt-2 w-full dark:border border-2" @click="addToCart(product)">Lisa korvi</Button>
                     
                 </Card>
             </div>

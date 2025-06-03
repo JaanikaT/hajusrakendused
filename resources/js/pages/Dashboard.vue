@@ -13,16 +13,13 @@ import {
 } from '@/components/ui/card'
 import Radar from 'radar-sdk-js';
 import 'radar-sdk-js/dist/radar.css'
-import {onMounted, ref, reactive } from 'vue';
-import {format, MapMouseEvent, Marker} from 'maplibre-gl';
-import Dialog from '@/components/ui/dialog/Dialog.vue';
-import DialogContent from '@/components/ui/dialog/DialogContent.vue';
+import {onMounted, ref } from 'vue';
+import { MapMouseEvent} from 'maplibre-gl';
 import { ArrowBigLeft, BrickWall, Laptop, Plane, ShoppingCart, Sun, Trash } from 'lucide-vue-next';
 import Button from '@/components/ui/button/Button.vue';
 import Label from '@/components/ui/label/Label.vue';
 import Input from '@/components/ui/input/Input.vue';
 import InputError from '@/components/InputError.vue';
-
 
 
 
@@ -47,93 +44,43 @@ const form = useForm({
     longitude: 0,
 });
 
+
 const submit = () => {
-//   form.put(route('marker.update', markerID.value), {
-//     onSuccess: () => {
-//       console.log('Marker updated successfully');
-//       isPopUpVisible.value = false;
-//     },
-//     onError: (errors) => {
-//       console.error('Error updating marker:', errors);
-//     },
-//   });
-    // form.put(route('marker.update', markerID.value), {
-    // preserveScroll: true,
-    // onSuccess: () => {
-    //     console.log('✅ Marker updated');
-    //     isPopUpVisible.value = false;
-    //     form.reset(); // optional: clears the form
-    //     markerID.value = undefined;
-    // },
-    // onError: (errors) => {
-    //     console.error('❌ Update failed:', errors);
-    // },
-    // });
-
-    form.put(route('marker.update', markerID.value), {
-        preserveScroll: true,
-        onSuccess: () => {
-            console.log('✅ Marker updated');
-            isPopUpVisible.value = false;
-
-            // Find and update the marker in `markers`
-            const index = markers.value.findIndex(m => m.id === markerID.value);
-            if (index !== -1) {
-            markers.value[index] = {
-                ...markers.value[index],
-                name: form.title,
-                description: form.description,
-                latitude: form.latitude,
-                longitude: form.longitude,
-            };
+    if (markerID.value) {
+        // UPDATE marker
+        form.put(route('marker.update', markerID.value), {
+            preserveScroll: true,
+            onSuccess: () => {
+                const index = markers.value.findIndex(m => m.id === markerID.value);
+                if (index !== -1) {
+                    markers.value[index] = {
+                        ...markers.value[index],
+                        name: form.title,
+                        description: form.description,
+                        latitude: form.latitude,
+                        longitude: form.longitude,
+                    };
+                }
+                form.reset();
+                markerID.value = undefined;
+                isPopUpVisible.value = false;
             }
-
-            form.reset();
-            markerID.value = undefined;
-        },
-        onError: (errors) => {
-            console.error('❌ Update failed:', errors);
-        },
-    });
+        });
+    } else {
+        // CREATE marker
+        form.post(route('marker.store'), {
+            preserveScroll: true,
+            onSuccess: (response) => {
+                
+                if (response?.props?.marker) {
+                    markers.value.push(response.props.marker);
+                }
+                form.reset();
+                isPopUpVisible.value = false;
+            }
+        });
+    }
 };
-
-// const submit = () => {
-//     if (markerID.value) {
-//         form.put(route('marker.update', markerID.value), {
-//             preserveScroll: true,
-//             onSuccess: () => {
-//                 console.log('✅ Marker updated');
-//                 isPopUpVisible.value = false;
-//             },
-//             onError: (errors) => {
-//                 console.error('❌ Error updating marker:', errors);
-//             }
-//         });
-//     } else {
-//         form.post(route('marker.store'), {
-//             preserveScroll: true,
-//             onSuccess: () => {
-//                 console.log('✅ Marker added');
-//                 isPopUpVisible.value = false;
-//             },
-//             onError: (errors) => {
-//                 console.error('❌ Error creating marker:', errors);
-//             }
-//         });
-//     }
-// };
-
-// const submit = () => {
-    
-//     if (markerID.value) {
-//         form.put(route('marker.update', markerID.value));
-//     } else {
-//         form.post(route('marker.store'));
-//     }
-
-//     isPopUpVisible.value=false;
-
-// }
 
 Radar.initialize('prj_test_pk_6c2848814c44d67c1a039f34825103987f04e92b', { /* map config options */ });
 
@@ -202,9 +149,7 @@ const deleteMarker = () => {
       form.reset();
       markerID.value = undefined;
     },
-    onError: (errors) => {
-      console.error('❌ Delete failed:', errors);
-    }
+   
   });
 };
     
@@ -214,10 +159,10 @@ const deleteMarker = () => {
     <Head title="Dashboard" />
     
     <div name="addMarkerPopUp" v-if="isPopUpVisible" class="absolute z-50 flex w-full h-screen justify-center items-center">
-        <form @submit.prevent="submit" method="POST" class="  bg-[#fafafa] dark:bg-[#121212] border-solid border-2 rounded-lg flex flex-col gap-2">
+        <form @submit.prevent="submit" method="POST" class="  bg-[#fafafa] dark:bg-[#121212] border-solid border-2 rounded-lg flex flex-col gap-2 w-1/4">
             <Card class="flex flex-col">
                 <CardHeader>
-                    <CardTitle>Marker sisestatakse</CardTitle>
+                    <CardTitle>Markeri koordinaadid</CardTitle>
                     <CardDescription>
                         <p>{{ form.longitude }}</p>
                         <p>{{ form.latitude }}</p>
@@ -225,31 +170,28 @@ const deleteMarker = () => {
                 </CardHeader>
                 
                 <CardContent class="flex flex-col gap-4">
-                    <div class="flex flex-col">
+                    <div class="flex flex-col gap-2">
                         <Label>Markeri nimi</Label>
-                        <Input v-model="form.title" type="text" name="title" id="title" />
+                        <Input v-model="form.title" type="text" name="title" id="title" class="mb-2" />
                         <InputError :message="form.errors.title"></InputError>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col gap-2">
                         <Label>Kirjeldus</Label>
                         <Input type="text" v-model="form.description" name="description" id="description" />
                         <InputError :message="form.errors.description"></InputError>
                     </div>
                 
                 </CardContent>
-                <CardFooter class="flex justify-between">
+                <CardFooter class="flex justify-between">   
                     <Button @click="closePopup" size="icon"  >
                         <ArrowBigLeft class="size-4"/>
                     </Button>
-                    <div class="flex gap-2">
-                        
-                        <Button v-if="markerID" type="button" variant="destructive" @click="deleteMarker" size="icon">
-                            <Trash class="size-4"></Trash>
-                        </Button>
-                        <Button type="submit">
-                        {{ markerID ? 'Uuenda markerit' : 'Salvesta' }}
-                        </Button>
-                    </div>
+                    <Button type="submit">
+                    {{ markerID ? 'Uuenda markerit' : 'Salvesta' }}
+                    </Button>
+                    <Button v-if="markerID" type="button" variant="destructive" @click="deleteMarker" size="icon">
+                        <Trash class="size-4"></Trash>
+                    </Button>
                 </CardFooter>
             </Card>
         </form>

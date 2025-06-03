@@ -44,29 +44,8 @@ class MarkerController extends Controller
             'longitude' => $validated['longitude'],
         ]);
 
-        return redirect()->back()->with('success', 'Marker added successfully!')->with('marker', $marker);;
+        return redirect()->back()->with('success', 'Marker added successfully!')->with('marker', $marker);
     }
-    // public function store(Request $request)
-    // {
-    //     //dd($request);
-    // //     Marker::create($request->validate([
-    // //         'title' => 'required|max:255',
-    // //         'description' => 'required',
-    // //     ]));
-    // // }
-        
-        
-    //     Marker::create([
-
-    //         'name' => $request -> title,
-    //         'description' => $request-> description,
-    //         'latitude' => $request -> latitude,
-    //         'longitude' => $request -> longitude,
-    //     ]);
-        
-    //     return redirect()-> to(route('dashboard'));
-
-    // }
 
     /**
      * Display the specified resource.
@@ -89,20 +68,7 @@ class MarkerController extends Controller
      */
     public function update(Request $request, Marker $marker)
     {
-        // Log::info('✏️ Update marker hit', [
-        //     'marker_id' => $marker->id,
-        //     'request_data' => $request->all(),
-        // ]);
-        // //dd($marker);
-        // $marker->update([
-        //     'name' => $request -> title,
-        //     'description' => $request-> description,
-        //     'latitude' => $request -> latitude,
-        //     'longitude' => $request -> longitude,
-        // ]);
-        // // return redirect()->back();
-        // return response()->noContent();
-
+     
          // Validate the incoming data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -111,10 +77,10 @@ class MarkerController extends Controller
             'longitude' => 'required|numeric',
         ]);
 
-        // Update the marker
+       
         $marker->update($validated);
 
-        // Return a 204 No Content response
+        
         return redirect()->to(route('dashboard'))->with('marker', $marker);
 
     }

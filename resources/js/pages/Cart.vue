@@ -68,7 +68,7 @@ const checkout = async () => {
                 </Button>
             </div>
         </div>        
-        <div class="bg-white shadow-md rounded-lg p-4">
+        <div class="bg-[#fafafa] dark:bg-[#121212] shadow-md rounded-lg p-4">
             <table class="table-auto w-full">
                 <thead>
                     <tr class="text-left border-b">

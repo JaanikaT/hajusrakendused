@@ -87,7 +87,7 @@ const deleteComment = (id: number | null) => {
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div v-if="flash.message" :class="['text-center mb-4 p-3 rounded', 
+        <div v-if="flash.message" :class="['dark: text-gray-700 text-center mb-4 p-3 rounded', 
         flash.type === 'success' ? 'bg-green-200' : 'bg-red-200']">
             {{ flash.message}}
         </div>
