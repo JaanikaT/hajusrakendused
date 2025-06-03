@@ -35,4 +35,13 @@ class DashboardController extends Controller
 
         return $response->json();
     }
+
+    public function dashboard()
+    {
+        $markers = Marker::all();
+
+        return Inertia::render('Dashboard', [
+            'markers' => $markers
+        ]);
+    }
 }
